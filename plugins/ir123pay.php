@@ -11,7 +11,7 @@ $pluginData['ir123pay']['field']['config'][1]['name']  = 'merchant_id';
 
 function gateway__ir123pay( $data ) {
 	global $config, $db, $smarty;
-	require_once 'include/libs/ir123pay.php';
+	require_once 'lib/ir123pay.php';
 
 	$merchant_id  = trim( $data['merchant_id'] );
 	$amount       = round( $data['amount'] );
@@ -38,7 +38,7 @@ function gateway__ir123pay( $data ) {
 
 function callback__ir123pay( $data ) {
 	global $db, $get;
-	require_once 'include/libs/123pay.php';
+	require_once 'lib/ir123pay.php';
 
 	$merchant_id = trim( $data['merchant_id'] );
 	$State       = $_REQUEST['State'];
@@ -72,6 +72,9 @@ function callback__ir123pay( $data ) {
 			$output['status']  = 0;
 			$output['message'] = 'پرداخت توسط یک دو سه پی تایید نشد';
 		}
+	} else {
+		$output['status']  = 0;
+		$output['message'] = 'پرداخت توسط کاربر لغو شده است';
 	}
 
 	return $output;
